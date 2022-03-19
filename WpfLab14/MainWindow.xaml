@@ -1,0 +1,53 @@
+﻿<Window x:Class="WpfLab14.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfLab14"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="600">
+    <Window.Resources>
+        <DataTemplate x:Key="myTemplate">
+            <Border x:Name="border" BorderThickness="2" Padding="5" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Название"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Цена"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Price}"/>
+                    <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Width="70" Height="70" Source="{Binding Path=Image}"/>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=ProductCategory}">
+                    <DataTrigger.Value>
+                        <local:ProductCategories>Food</local:ProductCategories>
+                    </DataTrigger.Value>
+                    <Setter TargetName="border" Property="BorderBrush" Value="red"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=ProductCategory}">
+                    <DataTrigger.Value>
+                        <local:ProductCategories>HomeAppliances</local:ProductCategories>
+                    </DataTrigger.Value>
+                    <Setter TargetName="border" Property="BorderBrush" Value="blue"/>
+                    <Setter TargetName="border" Property="Background" Value="#FFF3CCA4"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <TextBlock x:Name="productTitle" Text="Список продуктов" FontSize="20" HorizontalAlignment="Center"/>
+        <ListBox x:Name="listBox" Width="400" Margin="10" ItemTemplate="{StaticResource myTemplate}" HorizontalContentAlignment="Stretch"/>
+
+
+
+    </StackPanel>
+</Window>
